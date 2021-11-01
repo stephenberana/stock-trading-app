@@ -1,6 +1,7 @@
 class TradesController < ApplicationController
     before_action :authenticate_user!
-
+    before_action :setup
+    
     def index
         @trades = User.find(current_user.id).trades ||= nil
     end
@@ -27,7 +28,16 @@ class TradesController < ApplicationController
         redirect_to user_stocks_path(current_user.id)
     end
 
+    private
+
     def trade_params
        params.require(:trade).permit(:user_id, :quantity, :stock_id, stock_attributes: [:symbol]) 
+    end
+
+    def setup
+        @client = IEX::API::Client.new(
+            publishable_token: 'pk_92611ab063e242c8b3ccbed009db8f65', 
+            endpoint: 'https://sandbox.iexapis.com/v1'
+        )
     end
 end

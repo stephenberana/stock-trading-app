@@ -1,6 +1,7 @@
 class StocksController < ApplicationController
     before_action :authenticate_user!
-
+    before_action :setup
+    
     def new
     end
 
@@ -10,7 +11,7 @@ class StocksController < ApplicationController
 
         @stocks.each do |stock|
             quantity = 0
-            compatred_to_open = ""
+            compared_to_open = ""
             quote = client.quote(stock.symbol)
 
             price = quote.latest_price
@@ -19,7 +20,7 @@ class StocksController < ApplicationController
             change_percent = quote.change_percent_s
 
             @user.trades.where(stock_id: stock.id).each do |trade|
-                quantity = qantity + trade.quantity
+                quantity = quantity + trade.quantity
             end
 
             if change > 0
@@ -42,5 +43,12 @@ class StocksController < ApplicationController
 
     def stock_params
         params.require(:stock).permit(:symbol)
+    end
+
+    def setup
+        @client = IEX::API::Client.new(
+            publishable_token: 'pk_92611ab063e242c8b3ccbed009db8f65', 
+            endpoint: 'https://sandbox.iexapis.com/v1'
+        )
     end
 end
