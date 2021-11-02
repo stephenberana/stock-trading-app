@@ -59,4 +59,6 @@ gem 'iex-ruby-client'
 
 gem 'devise'
 
+gem 'cancancan'
+
 gem 'bootstrap'
