@@ -36,9 +36,6 @@ class StocksController < ApplicationController
         @trade.build_stock
     end
 
-    def create
-    end
-
     private
 
     def stock_params

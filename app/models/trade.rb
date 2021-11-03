@@ -1,5 +1,5 @@
 class Trade < ApplicationRecord
-    belongs_to :user
+    has_one :user
     belongs_to :stock
 
     accepts_nested_attributes_for :stock
