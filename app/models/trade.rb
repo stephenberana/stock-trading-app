@@ -1,5 +1,5 @@
 class Trade < ApplicationRecord
-    has_one :user
+    belongs_to :user
     belongs_to :stock
 
     accepts_nested_attributes_for :stock
@@ -12,9 +12,9 @@ class Trade < ApplicationRecord
             endpoint: 'https://sandbox.iexapis.com/v1'
         )
 
-        self.stock = Stock.find_or_create_by(symbol: stock[:symbol])
-        self.stock.price = client.price(stock[:symbol])
-        self.stock.open_price = client.quote(stock[:symbol]).previous_close
+        self.stock = Stock.find_or_create_by(string: stock[:company_name])
+        self.stock.price = client.price(stock[:company_name])
+        self.stock.open_price = client.quote(stock[:company_name]).previous_close
         self.stock.update(stock)
     end
 end

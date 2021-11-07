@@ -1,0 +1,17 @@
+    <div class="stock-form">
+        <%= form_for @trade, :url => trades_path(@user.id) do |form| %>
+            <%=  form.fields_for :stock, Stock.new do |st| %>
+                <div class="stock-form-fields">
+                <%   st.label "Ticker Symbol", class: "label" %>
+                <%=  st.text_field :ticker, class: "form-control mt-3 mb-3", style: 'width: 40%', placeholder: "Ticker Symbol" %>
+                </div>
+                <% end %>
+                <div class="stock-form-fields">
+                <%  form.label "Quantity", class: "label" %>
+                <%= form.text_field :quantity, class: "form-control mt-3 mb-3", style: 'width: 40%', placeholder: "Quantity" %>
+                </div>
+                <%= form.hidden_field :user_id, { :value => @user.id } %>
+                <%= form.submit "Submit", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+</div>

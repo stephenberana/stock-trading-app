@@ -3,10 +3,12 @@ class StocksController < ApplicationController
     before_action :setup
     
     def new
+        @trade = Trade.new(user_id: current_user.id)
+        @trade.build_stock
     end
 
     def index
-        @stocks = User.find(current_user.id).stocks.uniq || = nil
+        @stocks = User.find(current_user.id).stocks.uniq ||=nil
         @stock_data = Hash.new
 
         @stocks.each do |stock|
@@ -31,9 +33,6 @@ class StocksController < ApplicationController
 
             @stock_data[stock.symbol] = [quantity, price, compared_to_open, change_percent]
         end
-
-        @trade = Trade.new(user_id: current_user.id)
-        @trade.build_stock
     end
 
     private
@@ -43,7 +42,7 @@ class StocksController < ApplicationController
     end
 
     def setup
-        @client = IEX::API::Client.new(
+        @client = IEX::Api::Client.new(
             publishable_token: 'pk_92611ab063e242c8b3ccbed009db8f65', 
             endpoint: 'https://sandbox.iexapis.com/v1'
         )

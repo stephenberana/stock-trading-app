@@ -8,9 +8,9 @@ class TradesController < ApplicationController
         def create
             client = IEX::Api::Client.new(
                 publishable_token: 'pk_92611ab063e242c8b3ccbed009db8f65', 
-                endpoint: 'https://sandbox.iexapis.com/v1'
+                endpoint: 'https://cloud.iexapis.com/v1'
             )
-            stock_price = client.quote(params[:trade][:stock_attributes][:name]).latest_price
+            stock_price = client.quote(params[:trade][:stock_attributes][:symbol]).latest_price
             total_price = stock_price * params[:trade][:quantity].to_i
     
             if @user.balance > total_price
@@ -32,9 +32,10 @@ class TradesController < ApplicationController
         end
     end
     
-    def new
-        @trade = current_user.trades.build
-    end
+    # def new
+    #     @trade = current_user.trades.build
+    # end
+
         private
     
         def trade_params
