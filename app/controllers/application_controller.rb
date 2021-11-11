@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
     require 'iex-ruby-client'
 
-    before_action :require_signin
+    # before_action :require_signin
     before_action :set_current_user
     rescue_from IEX::Errors::SymbolNotFoundError, with: :no_symbol_error
     rescue_from Faraday::ConnectionFailed, with: :no_connection_error

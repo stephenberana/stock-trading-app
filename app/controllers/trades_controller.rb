@@ -10,10 +10,11 @@ class TradesController < ApplicationController
                 publishable_token: 'pk_92611ab063e242c8b3ccbed009db8f65', 
                 endpoint: 'https://cloud.iexapis.com/v1'
             )
-            stock_price = client.quote(params[:trade][:stock_attributes][:symbol]).latest_price
+            stock_price = client.quote(params[:trade][:stock_attributes][:ticker]).latest_price
             total_price = stock_price * params[:trade][:quantity].to_i
+            @balance = User.find(current_user.id).balance
     
-            if @user.balance > total_price
+            if @balance && (@balance > total_price)
                 @trade = Trade.create(trade_params)
     
             if @trade.valid?
@@ -24,11 +25,11 @@ class TradesController < ApplicationController
                 redirect_to user_stocks_path(current_user.id)
         else
             flash[:notice] = "Please enter the whole number of shares that you want to purchase."
-            redirect_to user_stocks_path(current_user.id)
+            redirect_to new_stock_path(current_user.id)
         end
         else
             flash[:alert] = "Cannot continue with transaction. Please add more funds to your account."
-            redirect_to user_stocks_path(current_user.id)
+            redirect_to new_stock_path(current_user.id)
         end
     end
     
@@ -39,6 +40,6 @@ class TradesController < ApplicationController
         private
     
         def trade_params
-           params.require(:trade).permit(:user_id, :quantity, :stock_id, stock_attributes: [:symbol]) 
+           params.require(:trade).permit(:user_id, :quantity, :stock_id, stock_attributes: [:ticker]) 
         end
 end

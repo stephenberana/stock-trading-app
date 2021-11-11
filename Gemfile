@@ -62,3 +62,7 @@ gem 'devise'
 gem 'cancancan'
 
 gem 'bootstrap'
+
+gem 'table_print'
+
+gem 'letter_opener', :group => :development

@@ -129,6 +129,10 @@ GEM
       money (~> 6.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    launchy (2.5.0)
+      addressable (~> 2.7)
+    letter_opener (1.7.0)
+      launchy (~> 2.2)
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -223,6 +227,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    table_print (1.5.7)
     thor (1.1.0)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -265,6 +270,7 @@ DEPENDENCIES
   devise
   iex-ruby-client
   jbuilder (~> 2.7)
+  letter_opener
   listen (~> 3.3)
   pg (~> 1.1)
   puma (~> 5.0)
@@ -273,6 +279,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver
   spring
+  table_print
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)

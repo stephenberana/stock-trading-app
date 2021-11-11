@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_07_224843) do
+ActiveRecord::Schema.define(version: 2021_11_09_123252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "balances", force: :cascade do |t|
+    t.integer "deposit"
+    t.integer "withdrawals"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_balances_on_user_id"
+  end
 
   create_table "stocks", force: :cascade do |t|
     t.string "ticker"
@@ -43,9 +52,11 @@ ActiveRecord::Schema.define(version: 2021_11_07_224843) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_Admin"
     t.boolean "approved", default: false
+    t.decimal "balance", precision: 10, scale: 2
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "balances", "users"
   add_foreign_key "trades", "users"
 end

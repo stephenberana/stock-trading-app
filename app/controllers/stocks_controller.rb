@@ -10,11 +10,12 @@ class StocksController < ApplicationController
     def index
         @stocks = User.find(current_user.id).stocks.uniq ||=nil
         @stock_data = Hash.new
+        @balance = User.find(current_user.id).balance
 
         @stocks.each do |stock|
             quantity = 0
             compared_to_open = ""
-            quote = client.quote(stock.symbol)
+            quote = client.quote(stock.ticker)
 
             price = quote.latest_price
             open_price = quote.previous_close
@@ -31,14 +32,14 @@ class StocksController < ApplicationController
                 compared_to_open = "down-since-open"
             end
 
-            @stock_data[stock.symbol] = [quantity, price, compared_to_open, change_percent]
+            @stock_data[stock.ticker] = [quantity, price, compared_to_open, change_percent]
         end
     end
 
     private
 
     def stock_params
-        params.require(:stock).permit(:symbol)
+        params.require(:stock).permit(:ticker)
     end
 
     def setup
