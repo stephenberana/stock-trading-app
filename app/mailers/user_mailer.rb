@@ -1,5 +1,4 @@
 class UserMailer < ApplicationMailer
-  default from: "admin@mystonks.com"
 
   def signup_confirmation(user)
     @user = params[:user]

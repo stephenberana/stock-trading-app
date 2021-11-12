@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -11,10 +11,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    # @user = User.new(sign_up_params)
+    # if @user.save
     super
-    flash[:notice] = 'Your account needs to be approveed before you gain complete access. Please wait for the approval.'
+    flash[:notice] = 'Your account needs to be approved before you gain complete access. Please wait for the approval.'
     UserMailer.with(user: @user).signup_confirmation.deliver
   end
+
+  private
 
   # GET /resource/edit
   # def edit
