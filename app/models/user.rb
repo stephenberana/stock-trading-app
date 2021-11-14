@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :trades
   has_many :stocks
+  belongs_to :balance
 end

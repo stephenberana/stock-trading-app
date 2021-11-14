@@ -1,5 +1,6 @@
 class TradesController < ApplicationController
         before_action :authenticate_user!
+        before_action :setup
         
         def index
             @trades = User.find(current_user.id).trades ||= nil
@@ -12,7 +13,7 @@ class TradesController < ApplicationController
             )
             stock_price = client.quote(params[:trade][:stock_attributes][:ticker]).latest_price
             total_price = stock_price * params[:trade][:quantity].to_i
-            @balance = User.find(current_user.id).balance
+           
     
             if @balance && (@balance > total_price)
                 @trade = Trade.create(trade_params)
@@ -41,5 +42,12 @@ class TradesController < ApplicationController
     
         def trade_params
            params.require(:trade).permit(:user_id, :quantity, :stock_id, stock_attributes: [:ticker]) 
+        end
+
+        def setup
+            # @balance = Balance.find(current_user.id).deposit
+            # @balance = current_user.balance.total_balance
+            @balance = Balance.where(user_session).total_balance
+
         end
 end

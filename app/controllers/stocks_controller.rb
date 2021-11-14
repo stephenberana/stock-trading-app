@@ -10,7 +10,6 @@ class StocksController < ApplicationController
     def index
         @stocks = User.find(current_user.id).stocks.uniq ||=nil
         @stock_data = Hash.new
-        @balance = User.find(current_user.id).balance
 
         @stocks.each do |stock|
             quantity = 0
@@ -47,5 +46,8 @@ class StocksController < ApplicationController
             publishable_token: 'pk_92611ab063e242c8b3ccbed009db8f65', 
             endpoint: 'https://sandbox.iexapis.com/v1'
         )
+
+        @balance = Balance.where(user_session).total_balance
+        # @balance = current_user.balance.total_balance
     end
 end

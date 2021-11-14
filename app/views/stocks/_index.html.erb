@@ -2,7 +2,8 @@
     <div class="portfolio-table">
         <div class="flex-container max-1000">
             <h1>Your Portfolio</h1>
-            <%# <h3 class="balance">Balance: $<%= "%.2f" % @user.balance %> </h3> %>
+            <%# <h3 class="balance">Balance: $<%= @balance %> </h3> %>
+            <%= render partial: "/balances/show" %>
         </div>
 
     <% if Stock.all.size > 0 %>

@@ -1,5 +1,5 @@
 class BalancesController < ApplicationController
-    before_action :setup_balance
+    before_action :setup_balance, only: [:show]
     before_action :balance_config, only: %i[deposit withdraw]
 
     def deposit
@@ -27,13 +27,16 @@ class BalancesController < ApplicationController
     private
 
     def setup_balance
-        @balance = Balance.find_by(id: params[:id])
+        # @balance = Balance.find_by(id: params[:user_id])
+        @balance = Balance.find(params[:id])
     end
 
     def balance_config
         @deposit = Balance.new
         @withdraw = Balance.new
-        @balance = current_user.balance
+        # @balance = current_user.balance.total_balance
+        @balance.inspect
+        # @balance.user = current_user
     end
 
     def balance_params
