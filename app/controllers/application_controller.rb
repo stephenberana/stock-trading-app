@@ -20,11 +20,12 @@ private
     def require_signin
         unless signed_in?
             flash[:notice] = "Please log in."
-            redirect_to root_path
+            #redirect_to root_path
         end
     end
 
     def set_current_user
         @user = current_user
     end
+    
 end

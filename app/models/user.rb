@@ -6,4 +6,9 @@ class User < ApplicationRecord
 
   has_many :trades
   has_many :stocks
+  validates :approved, inclusion: { in: [true,false]}
+
+  APPROVE_OPTIONS = [['True', true],
+  ['False', false]
+  ]
 end

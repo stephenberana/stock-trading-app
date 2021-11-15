@@ -1,8 +1,10 @@
 
 <% if current_user %>
-
-    <%= render partial: "/stocks/index" %>
-
+    <% if current_user.is_Admin? %>
+        <%= render partial: "/admin/users/welcome"%>
+    <% else %>
+        <%= render partial: "/stocks/index" %>
+    <% end %>
 <% else %>
 
     <%= render partial: "/devise/registrations/new" %>
