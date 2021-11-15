@@ -1,0 +1,13 @@
+<h4>Add Funds</h4>
+
+<%= form_with(model: @deposit) do |form| %>
+<div class="form-group">
+    <% form.label :deposit, style: 'padding: 24px' %>    
+    <%= form.number_field :deposit, value: number_to_currency(form.object.deposit.to_f, delimiter: '', unit: ''), class: 'form-control mt-3 mb-3', style: 'width: 40%', placeholder: "Deposit Amount" %>
+</div>
+
+<div class="actions">
+    <%= form.submit "Submit", class: "btn btn-secondary" %>
+</div>
+
+<%end%>

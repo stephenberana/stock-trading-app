@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  root to: 'pages#home'
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controller: {registrations: "registrations"}
+
+  devise_scope :user do
+    root 'pages#home'
+  end
+
   resources :users 
   namespace :admin do
     resources :users, except: :create
@@ -11,5 +15,12 @@ Rails.application.routes.draw do
   
   resources :stocks
   resources :trades
+
+  resources :balances do
+    collection do
+      get 'deposit'
+      get 'withdraw'
+    end
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

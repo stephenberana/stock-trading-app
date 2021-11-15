@@ -14,7 +14,7 @@ class StocksController < ApplicationController
         @stocks.each do |stock|
             quantity = 0
             compared_to_open = ""
-            quote = client.quote(stock.symbol)
+            quote = client.quote(stock.ticker)
 
             price = quote.latest_price
             open_price = quote.previous_close
@@ -31,14 +31,14 @@ class StocksController < ApplicationController
                 compared_to_open = "down-since-open"
             end
 
-            @stock_data[stock.symbol] = [quantity, price, compared_to_open, change_percent]
+            @stock_data[stock.ticker] = [quantity, price, compared_to_open, change_percent]
         end
     end
 
     private
 
     def stock_params
-        params.require(:stock).permit(:symbol)
+        params.require(:stock).permit(:ticker)
     end
 
     def setup
@@ -46,5 +46,8 @@ class StocksController < ApplicationController
             publishable_token: 'pk_92611ab063e242c8b3ccbed009db8f65', 
             endpoint: 'https://sandbox.iexapis.com/v1'
         )
+
+        @balance = Balance.where(user_session).total_balance
+        # @balance = current_user.balance.total_balance
     end
 end
