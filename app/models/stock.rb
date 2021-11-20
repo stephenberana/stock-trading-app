@@ -1,4 +1,4 @@
 class Stock < ApplicationRecord
-    has_many :trades
+    belongs_to :trades
     has_many :users, through: :trades
 end

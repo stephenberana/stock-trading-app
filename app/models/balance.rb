@@ -13,6 +13,11 @@ class Balance < ApplicationRecord
         total_deposits - total_withdrawals
     end
 
+    def self.deduct_from_balance(total_price)
+        total_balance - total_price
+        self.save
+    end
+
     private
 
     def invalid_transaction

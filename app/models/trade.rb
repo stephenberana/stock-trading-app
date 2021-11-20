@@ -1,10 +1,12 @@
 class Trade < ApplicationRecord
     belongs_to :user
-    belongs_to :stock
+    has_one :stock
+
 
     accepts_nested_attributes_for :stock
 
-    validates :quantity, numericality: { only_integer: true}
+    validates :quantity, numericality: :integer
+    validates :purchase_date, presence: true
 
     def stock_attributes(stock)
         client = IEX::API::Client.new(
@@ -12,9 +14,14 @@ class Trade < ApplicationRecord
             endpoint: 'https://sandbox.iexapis.com/v1'
         )
 
-        self.stock = Stock.find_or_create_by(string: stock[:company_name])
-        self.stock.price = client.price(stock[:company_name])
-        self.stock.open_price = client.quote(stock[:company_name]).previous_close
+        self.stock = Stock.find_or_create_by(string: stock[:ticker])
+        self.stock.price = client.price(stock[:ticker])
+        self.stock.open_price = client.quote(stock[:ticker]).previous_close
         self.stock.update(stock)
+        
     end
+
+    # def deduct_from_balance
+    #     balance - total_price
+    # end
 end

@@ -5,6 +5,8 @@
             <%= render partial: "/balances/show" %>
         </div>
 
+    <br>
+
     <% if Stock.all.size > 0 %>
         <table class="table table-striped table-dark">
             <thead>
@@ -17,8 +19,8 @@
 
             <% @stock_data.each do |stock_data| %>
                 <tr>
-                    <td><%= @ticker %></td>
-                    <td><%= @name %></td>
+                    <td><%= @stock.ticker %></td>
+                    <td><%= @stock.price %></td>
                     <td>$<%= @price%> </td>  
                     <%# <td><%= pluralize(quantity, 'share') %></td> %>
                 </tr>

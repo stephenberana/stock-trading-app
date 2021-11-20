@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     require 'iex-ruby-client'
+    # rescue_from ActiveRecord::RecordInvalid, with: :show_errors
 
     # before_action :require_signin
     before_action :set_current_user

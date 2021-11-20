@@ -1,5 +1,5 @@
     <div class="stock-form">
-        <%= form_for @trade, :url => trades_path(current_user) do |form| %>
+        <%= form_with(model:trade) do |form| %>
             <%=  form.fields_for :stock, Stock.new do |st| %>
                 <div class="stock-form-fields">
                 <%   st.label "Ticker Symbol", class: "label" %>
@@ -10,8 +10,23 @@
                 <%  form.label "Quantity", class: "label" %>
                 <%= form.number_field :quantity, class: "form-control mt-3 mb-3", style: 'width: 40%', placeholder: "Quantity" %>
                 </div>
+
+                <%# showing errors %>
+            <% if @trade.errors.any? %>
+                <div class="invalid-feedback">
+                <h2><%= pluralize(@trade.errors.count, "error")%> prohibited this trade from being saved:</h2>
+                <ul>
+                <% @trade.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+                </ul>
+                </div>
+            <% end %>
+
                 <%= form.hidden_field :user_id, { :value => @user.id } %>
+                <div class="actions">
                 <%= form.submit "Submit", class: "btn btn-primary" %>
+                </div>
         <% end %>
     </div>
 </div>
