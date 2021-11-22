@@ -21,8 +21,8 @@
 
             <% @trades.each do |trade| %>
                 <tr>
-                    <td><%= Stock.find(trade.stock_id).name%>
-                    <td><%= Stock.find(trade.stock_id).ticker%>
+                    <td><%= trade.company_name %>
+                    <td><%= trade.ticker %>
                     <td><%= trade.created_at.to_date.strftime("%b, %d, %Y") %></td>
                     <td><%= trade.quantity %> shares</td>
                     <td class="align-right">$<%= "%.2f" % (trade.price) %></td>

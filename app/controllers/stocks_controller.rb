@@ -8,6 +8,7 @@ class StocksController < ApplicationController
     end
 
     def index
+        byebug
         @stocks = User.find(current_user.id).stocks.uniq ||=nil
         @stock_data = Hash.new
 
@@ -45,9 +46,9 @@ class StocksController < ApplicationController
     end
 
     def setup
-        @client = IEX::Api::Client.new(
+        client = IEX::Api::Client.new(
             publishable_token: 'pk_92611ab063e242c8b3ccbed009db8f65', 
-            endpoint: 'https://sandbox.iexapis.com/v1'
+            endpoint: 'https://cloud.iexapis.com/v1'
         )
 
         @balance = Balance.where(user_session).total_balance
