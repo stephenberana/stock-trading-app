@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
   def home
-    @stock_data = Stock.all
+    @stock = Stock.where(user_session)
   end
 end
