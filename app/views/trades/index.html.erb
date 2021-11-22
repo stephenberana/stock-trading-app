@@ -26,7 +26,12 @@
                     <td><%= trade.created_at.to_date.strftime("%b, %d, %Y") %></td>
                     <td><%= trade.quantity %> shares</td>
                     <td class="align-right">$<%= "%.2f" % (trade.price) %></td>
-                     <td class="align-right">$<%= "%.2f" % (trade.quantity * trade.price) %></td>
+                    <td class="align-right">$<%= "%.2f" % (trade.quantity * trade.price) %></td>
+                        <%# buttons %>
+                        <td><%= link_to 'Sell', edit_trade_path(trade), class: 'btn btn-outline-success btn-sm mb-2' %></td>
+                        <td><%= link_to 'Delete', trade, method: :delete, 
+                        data: { confirm: 'Are you sure you want to delete this log?' }, 
+                        class: 'btn btn-outline-danger btn-sm mb-2' %></td>
                 </tr>
             <% end %>
         </table>
