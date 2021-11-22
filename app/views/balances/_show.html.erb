@@ -6,13 +6,13 @@
     <div class="card-body">
         <div>
             <label class="card-text">Account Balance</label>
-            <h3 class="card-title">$<%= Balance.where(user_session).total_balance%></h3>
+            <h3 class="card-title">$<%= current_user.balances.total_balance%></h3>
 
             <label class="card-text">Total Deposited</label>
-            <h3 class="card-title">$<%= Balance.where(user_session).total_deposits%></h3>
+            <h3 class="card-title">$<%= current_user.balances.total_deposits%></h3>
 
              <label class="card-text">Total Withdrawn</label>
-            <h3 class="card-title">$<%= Balance.where(user_session).total_withdrawals%></h3>
+            <h3 class="card-title">$<%= current_user.balances.total_withdrawals%></h3>
         </div>
     </div>
 

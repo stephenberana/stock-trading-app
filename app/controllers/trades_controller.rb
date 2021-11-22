@@ -1,9 +1,9 @@
 class TradesController < ApplicationController
-        # before_action :authenticate_user!
+        before_action :authenticate_user!
         before_action :setup
 
         def index
-            @trades = Trade.where(user_session)
+            @trades = current_user.trades
         end
         
         def new

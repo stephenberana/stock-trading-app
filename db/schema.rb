@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2021_11_21_235846) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_Admin"
     t.boolean "approved", default: false
-    t.boolean "is_Admin", default: false, null: false
     t.decimal "balance", precision: 10, scale: 2
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

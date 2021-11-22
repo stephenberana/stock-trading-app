@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
     def market
-        @balance = Balance.where(user_session).total_balance
+        @balance = current_user.balances
     end
 end
