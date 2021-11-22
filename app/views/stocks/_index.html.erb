@@ -12,14 +12,14 @@
                     <th class="align-left">Ticker</th>
                     <th class="align-left">Name</th>
                     <th class="align-right">Current Value</th>
-                     <%# <th class="align-left">Quantity</th> %>
+                    <th class="align-left">Quantity</th>
                 </tr>
 
-            <% @stock_data.each do |stock_data| %>
+            <% @stock.each do |stock| %>
                 <tr>
-                    <td><%= @ticker %></td>
-                    <td><%= @name %></td>
-                    <td>$<%= @price%> </td>  
+                    <td><%= @stock.ticker %></td>
+                    <td><%= @stock.name %></td>
+                    <td>$<%= @stock.price %> </td>  
                     <%# <td><%= pluralize(quantity, 'share') %></td> %>
                 </tr>
             <% end %>

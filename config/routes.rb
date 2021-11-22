@@ -2,12 +2,13 @@ Rails.application.routes.draw do
   devise_for :users, controller: {registrations: "registrations"}
 
   devise_scope :user do
-    root 'pages#home'
+    root 'trades#index'
   end
 
   resources :users 
   resources :stocks
   resources :trades
+  get 'trades/:id', to: 'trades#index'
 
   resources :balances do
     collection do
